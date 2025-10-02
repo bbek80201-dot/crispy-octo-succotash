@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>So'rovnoma</title>
+<style>
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+    body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f0f2f5;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        padding: 40px 20px;
+    }
+
+    .container {
+        display: flex;
+        max-width: 700px;
+        width: 100%;
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        overflow: hidden;
+        gap: 24px;
+        min-height: 500px; /* balandlik oshirildi */
+    }
+
+    /* User photo blok */
+    .user-photo {
+        background-color: #ffeb3b; /* sariq */
+        width: 140px;
+        min-width: 140px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; /* yuqoriga jamlandi */
+        align-items: center;
+        border-right: 4px solid #0b79d0;
+        position: relative;
+        padding-top: 20px;
+        gap: 20px;
+    }
+    .user-photo h2 {
+        margin: 0;
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #0b79d0;
+        user-select: none;
+    }
+    .user-photo img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: contain;
+        filter: none;
+        box-shadow: 0 0 6px 2px #d4c505cc;
+    }
+
+    /* Forma qismi */
+    form {
+        flex-grow: 1;
+        padding: 32px 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px; /* biroz ko‘proq oraliq */
+        min-height: 450px; /* balandlik oshirildi */
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: #222;
+        user-select: none;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select {
+        padding: 10px 14px;
+        border-radius: 6px;
+        border: 1.8px solid #ccc;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+        outline-offset: 2px;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    select:focus {
+        border-color: #0b79d0;
+        outline: none;
+        box-shadow: 0 0 6px #0b79d0aa;
+    }
+
+    /* Jins tanlovi */
+    .gender-options {
+        display: flex;
+        gap: 24px;
+    }
+
+    .gender-options label {
+        position: relative;
+        padding-left: 35px;
+        cursor: pointer;
+        font-weight: 500;
+        user-select: none;
+        color: #444;
+    }
+
+    .gender-options input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 20px;
+        width: 20px;
+        margin: 0;
+    }
+
+    /* Dumaloq radiobutton yaratish */
+    .gender-options label::before {
+        content: "";
+        position: absolute;
+        left: 4px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        border: 2.5px solid #0b79d0;
+        border-radius: 50%;
+        background: #fafafa;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Belgilangan variant ichida dumaloq */
+    .gender-options input[type="radio"]:checked + label::after {
+        content: "";
+        position: absolute;
+        left: 11px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 9px;
+        height: 9px;
+        background-color: #0b79d0;
+        border-radius: 50%;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Submit tugmasi */
+    button[type="submit"] {
+        background-color: #0b79d0;
+        color: #f5da0e;
+        padding: 14px 22px;
+        font-size: 18px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 700;
+        box-shadow: 0 3px 8px #0b79d0cc;
+        transition: background-color 0.3s ease;
+        align-self: flex-start;
+        user-select: none;
+    }
+    button[type="submit"]:hover,
+    button[type="submit"]:focus {
+        background-color: #095a9d;
+        outline: none;
+        box-shadow: 0 0 12px #095a9dcc;
+    }
+
+    /* Javobgarlik (responsiv) */
+    @media (max-width: 600px) {
+        .container {
+            flex-direction: column;
+            max-width: 100%;
+            min-height: auto; /* kichik ekran uchun o‘zgartirish */
+        }
+        .user-photo {
+            width: 100%;
+            border-right: none;
+            border-bottom: 4px solid #0b79d0;
+            padding: 20px 0 30px 0;
+            flex-direction: row;
+            justify-content: flex-start;
+            gap: 15px;
+        }
+        .user-photo h2 {
+            font-size: 1.2rem;
+            margin: 0;
+            align-self: center;
+        }
+        .user-photo img {
+            width: 80px;
+            height: 80px;
+        }
+        form {
+            padding: 20px;
+            min-height: auto;
+            gap: 20px;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="container" role="main" aria-label="So'rovnoma shakli">
+    <aside class="user-photo" aria-label="Foydalanuvchi rasmi va sarlavha">
+        <h2>So'rovnoma</h2>
+        <img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="Foydalanuvchi rasmi" />
+    </aside>
+
+    <form novalidate>
+        <div class="form-group">
+            <label for="name">Ism:</label>
+            <input type="text" id="name" name="name" required autocomplete="name" placeholder="Ismingizni kiriting" />
+        </div>
+
+        <div class="form-group">
+            <span role="radiogroup" aria-labelledby="gender-label" style="font-weight:600; margin-bottom:6px; color:#222;">Jins:</span>
+            <div class="gender-options">
+                <input type="radio" id="male" name="gender" value="male" required />
+                <label for="male">Erkak</label>
+
+                <input type="radio" id="female" name="gender" value="female" />
+                <label for="female">Ayol</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="country">Davlat:</label>
+            <select id="country" name="country" required>
+                <option value="" disabled selected>Davlatni tanlang</option>
+                <option value="uzbekistan">O'zbekiston</option>
+                <option value="kazakhstan">Qozog'iston</option>
+                <option value="kyrgyzstan">Qirg'iziston</option>
+                <option value="tajikistan">Tojikiston</option>
+                <option value="afghanistan">Afg'oniston</option>
+                <option value="turkmenistan">Turkmenistan</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required autocomplete="email" placeholder="Email manzilingizni kiriting" />
+        </div>
+
+        <button type="submit">Yuborish</button>
+    </form>
+</div>
+
+</body>
+</html>
